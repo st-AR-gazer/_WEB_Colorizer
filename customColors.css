@@ -1,0 +1,26 @@
+.modal, .color-card {
+    transition: transform 0.5s ease;
+}
+
+.modal {
+    position: relative;
+    z-index: 2;
+}
+
+.color-card {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(100%, -50%);
+    z-index: 1;
+    width: 300px;
+    
+}
+
+.modal-active {
+    transform: translateX(-100px);
+}
+
+.color-card-active {
+    transform: translate(0%, -50%);
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TM Color Code Formatter</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="customColors.css"> 
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+<style>
+    
+
+</style>
+
+</head>
+<body>
+    <canvas id="dotCanvas"></canvas>
+
+    <div class="modal">
+        <h1>Trackmania Color Code Formatter</h1>
+        
+        <div class="flex-container settings-area">
+            <button id="toggleEscape" onclick="toggleEscapeCharacters()">Include \\</button>
+            <button id="toggleColorCard" onclick="toggleColorCard()">Set custom colors</button>
+        </div>
+    
+        <div class="flex-container input-area">
+            <input type="text" id="inputString" placeholder="Enter your text">
+            <button onclick="colorizeAndDisplay()">🎨</button>
+        </div>
+    
+        <div class="flex-container output-area">
+            <div id="outputString" class="text-field" style="margin-right: 10px;">Your formatted text will appear here...</div>
+            <button onclick="copyToClipboard()">📋</button>
+        </div>
+    
+        <div class="flex-container preview-area">
+            <div id="previewString" class="text-field">Preview color text here</div>
+        </div>
+
+        
+    </div>
+
+    <!-- Color Card -->
+    <div id="colorCard" class="color-card">
+        <div class="color-card-content">
+            <h2>Choose Colors</h2>
+            <label for="startColor">Start Color:</label>
+            <input type="color" id="startColor" name="startColor" value="#0033CC">
+            <label for="endColor">End Color:</label>
+            <input type="color" id="endColor" name="endColor" value="#33FFFF">
+            <!-- <button onclick="applyColorChanges()">Apply</button> -->
+        </div>
+    </div>
+
+    
+    <script src="colorize.js"></script>
+    <script src="background.js"></script>
+    <script>
+        
+    </script>
+    <script>
+        function copyToClipboard() {
+            const outputString = document.getElementById("outputString").innerText;
+            navigator.clipboard.writeText(outputString)
+                .then(() => {
+                    console.log("Text copied to clipboard");
+                })
+                .catch(err => {
+                    console.error('Error in copying text: ', err);
+                });
+        }
+    </script>
+    </body>
+    
+</html>
