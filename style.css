@@ -164,3 +164,34 @@ button:hover {
     font-size: 18px;
 }
 
+/*  */
+
+.notification-container {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.notification-message {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.5s ease;
+    pointer-events: auto;
+}
+
+.notification-message.show {
+    visibility: visible;
+    transform: translateY(-20px);
+}

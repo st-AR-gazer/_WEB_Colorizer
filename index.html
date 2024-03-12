@@ -52,6 +52,7 @@
         </div>
     </div>
 
+    <div id="notificationContainer" class="notification-container"></div>
 
     <script src="colorize.js"></script>
     <script src="background.js"></script>
@@ -79,12 +80,36 @@
             const outputString = document.getElementById("outputString").innerText;
             navigator.clipboard.writeText(outputString)
                 .then(() => {
-                    console.log("Text copied to clipboard");
+                    showNotification("Copied to clipboard!");
                 })
                 .catch(err => {
                     console.error('Error in copying text: ', err);
                 });
         }
+    </script>
+    <script>
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.classList.add('notification-message');
+            notification.textContent = message;
+        
+            const container = document.getElementById('notificationContainer');
+            container.appendChild(notification);
+        
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+        
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    container.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+        
+        
+        
     </script>
 </body>
 
