@@ -16,9 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
             this.baseY = this.y;
             this.size = 2;
         }
-
+    
         draw() {
-            ctx.fillStyle = '#FFF';
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, startColorGlobal);
+            gradient.addColorStop(1, endColorGlobal);
+            
+            ctx.fillStyle = gradient;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.closePath();

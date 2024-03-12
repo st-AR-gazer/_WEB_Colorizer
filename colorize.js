@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         endColorGlobal = endColor;
         
         colorizeAndDisplay();
+        // No explicit call to redraw the dots is necessary here if colorizeAndDisplay leads to re-rendering
+        // If not, call a function here to clear and redraw the canvas with updated colors
     }
 });
 

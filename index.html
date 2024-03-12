@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TM Color Code Formatter</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="customColors.css"> 
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-
-<style>
-    
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TM Color Code Formatter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="customColors.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
 </head>
+
 <body>
     <canvas id="dotCanvas"></canvas>
 
     <div class="modal">
-        <h1>Trackmania Color Code Formatter</h1>
-        
+        <h1>Trackmania Linear Color Code Formatter</h1>
+
         <div class="flex-container settings-area">
             <button id="toggleEscape" onclick="toggleEscapeCharacters()">Include \\</button>
+            <button id="clearFormatter" onclick="clearFormatter()">Reset formatter</button>
             <button id="toggleColorCard" onclick="toggleColorCard()">Set custom colors</button>
         </div>
-    
+
         <div class="flex-container input-area">
             <input type="text" id="inputString" placeholder="Enter your text">
             <button onclick="colorizeAndDisplay()">🎨</button>
         </div>
-    
+
         <div class="flex-container output-area">
-            <div id="outputString" class="text-field" style="margin-right: 10px;">Your formatted text will appear here...</div>
+            <div id="outputString" class="text-field" style="margin-right: 10px;">Your formatted text will appear here... </div>
             <button onclick="copyToClipboard()">📋</button>
         </div>
-    
+
         <div class="flex-container preview-area">
-            <div id="previewString" class="text-field">Preview color text here</div>
+            <div id="previewString" class="text-field">Preview color text here </div>
         </div>
 
-        
+
     </div>
 
     <!-- Color Card -->
@@ -54,11 +52,27 @@
         </div>
     </div>
 
-    
+
     <script src="colorize.js"></script>
     <script src="background.js"></script>
     <script>
-        
+        function clearFormatter() {
+            document.getElementById('inputString').value = '';
+
+            document.getElementById('outputString').innerText = 'Your formatted text will appear here...';
+            document.getElementById('previewString').innerHTML = 'Preview color text here';
+
+            document.getElementById('startColor').value = '#0033CC';
+            document.getElementById('endColor').value = '#33FFFF';
+
+            startColorGlobal = '#0033CC';
+            endColorGlobal = '#33FFFF';
+
+            includeEscapeCharacters = false;
+            document.getElementById('toggleEscape').textContent = "Include \\\\";
+
+            colorizeAndDisplay();
+        }
     </script>
     <script>
         function copyToClipboard() {
@@ -72,6 +86,6 @@
                 });
         }
     </script>
-    </body>
-    
+</body>
+
 </html>
