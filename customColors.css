@@ -14,7 +14,12 @@
     transform: translate(100%, -50%);
     z-index: 1;
     width: 300px;
-    
+
+    padding: 0px 20px 20px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    background-color: rgba(30, 30, 30, 0.5);
 }
 
 .modal-active {
@@ -23,4 +28,5 @@
 
 .color-card-active {
     transform: translate(0%, -50%);
+    z-index: 30;
 }
