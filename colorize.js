@@ -79,7 +79,6 @@ function colorizeAndDisplay() {
     if(inputString) {
         let outputString = colorizeString(inputString);
         document.getElementById("outputString").innerText = outputString;
-        showNotification("Colorized!");
     }
 }
 
