@@ -41,6 +41,12 @@ canvas#dotCanvas {
     margin: auto;
 }
 
+@media (max-width: 903px){
+    .modal {
+        max-width: 80%;
+    }
+}
+
 h1 {
     color: #e0e0e0;
     margin-bottom: 16px;

@@ -30,3 +30,24 @@
     transform: translate(0%, -50%);
     z-index: 30;
 }
+
+@media (max-width: 903px) {
+    .color-card {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 20vw;
+        transform: translateY(100%);
+        width: 60vw;
+        border-radius: 0;
+    }
+
+    .color-card-active {
+        transform: translateY(0);
+    }
+
+    .modal-active {
+        transform: translateY(-50px);
+    }
+}
+
