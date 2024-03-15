@@ -5,7 +5,7 @@ let endColorGlobal = "#33FFFF";
 
 function toggleEscapeCharacters() {
     includeEscapeCharacters = !includeEscapeCharacters;
-    document.getElementById('toggleEscape').textContent = includeEscapeCharacters ? "Exclude \\\\" : "Include \\\\";
+    document.getElementById('toggleEscape').textContent = includeEscapeCharacters ? "Exclude \\" : "Include \\";
     
     colorizeAndDisplay();
 }
@@ -51,7 +51,7 @@ function formatColorCode(hexColor) {
     let r = parseInt(hexColor.slice(1, 3), 16) / 17;
     let g = parseInt(hexColor.slice(3, 5), 16) / 17;
     let b = parseInt(hexColor.slice(5, 7), 16) / 17;
-    return includeEscapeCharacters ? `\\\\$${Math.floor(r).toString(16)}${Math.floor(g).toString(16)}${Math.floor(b).toString(16)}` : `$${Math.floor(r).toString(16)}${Math.floor(g).toString(16)}${Math.floor(b).toString(16)}`;
+    return includeEscapeCharacters ? `\\$${Math.floor(r).toString(16)}${Math.floor(g).toString(16)}${Math.floor(b).toString(16)}` : `$${Math.floor(r).toString(16)}${Math.floor(g).toString(16)}${Math.floor(b).toString(16)}`;
 }
 
 function colorizeString(inputString) {
