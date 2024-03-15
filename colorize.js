@@ -3,6 +3,12 @@ let includeEscapeCharacters = false;
 let startColorGlobal = "#0033CC";
 let endColorGlobal = "#33FFFF";
 
+let isColorCardOpen = false;
+let isOptionsCardOpen = false;
+
+
+
+
 function toggleEscapeCharacters() {
     includeEscapeCharacters = !includeEscapeCharacters;
     document.getElementById('toggleEscape').textContent = includeEscapeCharacters ? "Exclude \\" : "Include \\";
@@ -11,6 +17,18 @@ function toggleEscapeCharacters() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[name="interpolation"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            colorizeAndDisplay(this.value);
+        });
+    });
+
+    document.getElementById('inputString').addEventListener('input', function() {
+        colorizeAndDisplay();
+    });
+
+    colorizeAndDisplay(document.querySelector('[name="interpolation"]:checked').value);
+
     document.getElementById('startColor').addEventListener('input', applyColorChanges);
     document.getElementById('endColor').addEventListener('input', applyColorChanges);
     
@@ -25,27 +43,72 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function interpolateColors(steps) {
-    function hexToRgb(hex) {
-        let r = parseInt(hex.slice(1, 3), 16);
-        let g = parseInt(hex.slice(3, 5), 16);
-        let b = parseInt(hex.slice(5, 7), 16);
-        return [r, g, b];
-    }
+function hexToRgb(hex) {
+    let r = parseInt(hex.slice(1, 3), 16);
+    let g = parseInt(hex.slice(3, 5), 16);
+    let b = parseInt(hex.slice(5, 7), 16);
+    return {r, g, b};
+}    
 
-    let [sR, sG, sB] = hexToRgb(startColorGlobal);
-    let [eR, eG, eB] = hexToRgb(endColorGlobal);
+function interpolateColors(steps, type) {
     let colorArray = [];
+    const {r: sR, g: sG, b: sB} = hexToRgb(startColorGlobal);
+    const {r: eR, g: eG, b: eB} = hexToRgb(endColorGlobal);
 
-    for (let step = 0; step < steps; step++) {
-        let r = Math.round(sR + ((eR - sR) / (steps - 1)) * step);
-        let g = Math.round(sG + ((eG - sG) / (steps - 1)) * step);
-        let b = Math.round(sB + ((eB - sB) / (steps - 1)) * step);
-        colorArray.push(`#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`);
+    for (let step = 0; step < steps; ++step) {
+        let t = step / (steps - 1);
+        t = applyInterpolation(t, type);
+
+        const r = Math.round(sR + (eR - sR) * t).toString(16).padStart(2, '0');
+        const g = Math.round(sG + (eG - sG) * t).toString(16).padStart(2, '0');
+        const b = Math.round(sB + (eB - sB) * t).toString(16).padStart(2, '0');
+        colorArray.push(`#${r}${g}${b}`);
     }
-
     return colorArray;
 }
+
+function applyInterpolation(t, type) {
+    switch(type) {
+        case 'Quadratic':
+            return t * t;
+        case 'Exponential':
+            return Math.pow(t, 3);
+        case 'Cubic':
+            return t * t * (3 - 2 * t);
+        case 'Sine':
+            return Math.sin(t * Math.PI / 2);
+        case 'Back':
+            let s = 1.70158;
+            return t * t * ((s + 1) * t - s);
+        case 'Elastic':
+            let p = 0.3;
+            return Math.pow(2, -10 * t) * Math.sin((t - p / 4) * (2 * Math.PI) / p) + 1;
+        case 'Bounce':
+            if (t < (1 / 2.75)) {
+                return 7.5625 * t * t;
+            } else if (t < (2 / 2.75)) {
+                t -= (1.5 / 2.75);
+                return 7.5625 * t * t + 0.75;
+            } else if (t < (2.5 / 2.75)) {
+                t -= (2.25 / 2.75);
+                return 7.5625 * t * t + 0.9375;
+            } else {
+                t -= (2.625 / 2.75);
+                return 7.5625 * t * t + 0.984375;
+            }
+        case 'InverseQuadratic':
+            return 1 - (1 - t) * (1 - t);
+        case 'Smoothstep':
+            return t * t * (3 - 2 * t);
+        case 'Smootherstep':
+            return t * t * t * (t * (t * 6 - 15) + 10);
+        case 'Circular':
+            return 1 - Math.sqrt(1 - t * t);
+        default:
+            return t; // Linear as default
+    }
+}
+
 
 function formatColorCode(hexColor) {
     let r = parseInt(hexColor.slice(1, 3), 16) / 17;
@@ -54,10 +117,10 @@ function formatColorCode(hexColor) {
     return includeEscapeCharacters ? `\\$${Math.floor(r).toString(16)}${Math.floor(g).toString(16)}${Math.floor(b).toString(16)}` : `$${Math.floor(r).toString(16)}${Math.floor(g).toString(16)}${Math.floor(b).toString(16)}`;
 }
 
-function colorizeString(inputString) {
+function colorizeString(inputString, type) {
     if (inputString.length < 2) return formatColorCode(startColorGlobal) + inputString;
 
-    let colors = interpolateColors(inputString.length);
+    let colors = interpolateColors(inputString.length, type);
     let coloredString = "";
     let previewString = document.getElementById("previewString");
     previewString.innerHTML = "";
@@ -76,8 +139,9 @@ function colorizeString(inputString) {
 
 function colorizeAndDisplay() {
     let inputString = document.getElementById("inputString").value;
+    let type = document.querySelector('[name="interpolation"]:checked').value;
     if(inputString) {
-        let outputString = colorizeString(inputString);
+        let outputString = colorizeString(inputString, type);
         document.getElementById("outputString").innerText = outputString;
     }
 }
@@ -90,6 +154,30 @@ function toggleColorCard() {
     const modal = document.querySelector('.modal');
     const colorCard = document.getElementById('colorCard');
 
-    modal.classList.toggle('modal-active');
+    isColorCardOpen = !isColorCardOpen;
     colorCard.classList.toggle('color-card-active');
+
+    adjustModalPosition();
+}
+
+function toggleOptions() {
+    const modal = document.querySelector('.modal');
+    const optionsCard = document.getElementById('optionsCard');
+
+    isOptionsCardOpen = !isOptionsCardOpen;
+    optionsCard.classList.toggle('options-card-active');
+
+    adjustModalPosition();
+}
+
+function adjustModalPosition() {
+    const modal = document.querySelector('.modal');
+
+    modal.classList.remove('modal-active', 'modal-options-active');
+
+    if (isColorCardOpen && !isOptionsCardOpen) {
+        modal.classList.add('modal-active');
+    } else if (!isColorCardOpen && isOptionsCardOpen) {
+        modal.classList.add('modal-options-active');
+    }
 }

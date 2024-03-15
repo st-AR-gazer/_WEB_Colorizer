@@ -19,12 +19,13 @@
     <canvas id="dotCanvas"></canvas>
 
     <div class="modal">
-        <h1>Trackmania Linear Color Code Formatter</h1>
+        <h1>Trackmania Color Code Formatter</h1>
 
         <div class="flex-container settings-area">
             <button id="toggleEscape" onclick="toggleEscapeCharacters()">Include \</button>
             <button id="clearFormatter" onclick="clearFormatter()">Reset formatter</button>
-            <button id="toggleColorCard" onclick="toggleColorCard()">Set custom colors</button>
+            <button id="toggleOptions" onclick="toggleOptions()">Custom formatting</button>
+            <button id="toggleColorCard" onclick="toggleColorCard()">Custom colors</button>
         </div>
 
         <div class="flex-container input-area">
@@ -56,6 +57,51 @@
         </div>
     </div>
 
+    <!-- Option Card similar in style to Color Card -->
+    <div id="optionsCard" class="options-card">
+        <div class="option-card-content">
+            <h2>Custom Formatting Options</h2>
+            <div class="btn-group">
+                <input type="radio" id="linear" name="interpolation" value="Linear" checked>
+                <label for="linear" class="btn">Linear</label>
+    
+                <input type="radio" id="quadratic" name="interpolation" value="Quadratic">
+                <label for="quadratic" class="btn">Quadratic</label>
+    
+                <input type="radio" id="exponential" name="interpolation" value="Exponential">
+                <label for="exponential" class="btn">Exponential</label>
+    
+                <input type="radio" id="cubic" name="interpolation" value="Cubic">
+                <label for="cubic" class="btn">Cubic</label>
+    
+                <input type="radio" id="sine" name="interpolation" value="Sine">
+                <label for="sine" class="btn">Sine</label>
+    
+                <input type="radio" id="back" name="interpolation" value="Back">
+                <label for="back" class="btn">Back</label>
+    
+                <input type="radio" id="elastic" name="interpolation" value="Elastic">
+                <label for="elastic" class="btn">Elastic</label>
+    
+                <input type="radio" id="bounce" name="interpolation" value="Bounce">
+                <label for="bounce" class="btn">Bounce</label>
+    
+                <input type="radio" id="inverseQuadratic" name="interpolation" value="InverseQuadratic">
+                <label for="inverseQuadratic" class="btn">Inverse Quadratic</label>
+    
+                <input type="radio" id="smoothstep" name="interpolation" value="Smoothstep">
+                <label for="smoothstep" class="btn">Smoothstep</label>
+    
+                <input type="radio" id="smootherstep" name="interpolation" value="Smootherstep">
+                <label for="smootherstep" class="btn">Smootherstep</label>
+    
+                <input type="radio" id="circular" name="interpolation" value="Circular">
+                <label for="circular" class="btn">Circular</label>
+            </div>
+        </div>
+    </div>
+    
+    
     <div id="notificationContainer" class="notification-container"></div>
 
     <script src="colorize.js"></script>
@@ -74,7 +120,7 @@
             endColorGlobal = '#33FFFF';
 
             includeEscapeCharacters = false;
-            document.getElementById('toggleEscape').textContent = "Include \\\\";
+            document.getElementById('toggleEscape').textContent = "Include \\";
 
             colorizeAndDisplay();
         }
