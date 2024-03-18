@@ -23,19 +23,19 @@
 
         <div class="flex-container settings-area">
             <button id="toggleEscape" onclick="toggleEscapeCharacters()">Include \</button>
-            <button id="clearFormatter" onclick="clearFormatter()">Reset formatter</button>
             <button id="toggleOptions" onclick="toggleOptions()">Custom formatting</button>
             <button id="toggleColorCard" onclick="toggleColorCard()">Custom colors</button>
+            <button id="clearFormatter" onclick="clearFormatter()">Reset formatter</button>
         </div>
 
         <div class="flex-container input-area">
             <input type="text" id="inputString" placeholder="Enter your text">
-            <button onclick="colorizeAndDisplay()">🎨</button>
+            <button onclick="colorizeAndDisplay(); showNotification('Colorized!');">🎨</button>
         </div>
 
         <div class="flex-container output-area">
             <div id="outputString" class="text-field" style="margin-right: 10px;">Your formatted text will appear here... </div>
-            <button onclick="copyToClipboard(); showNotification('Colorized!');">📋</button>
+            <button onclick="copyToClipboard(); ">📋</button>
         </div>
 
         <div class="flex-container preview-area">
@@ -64,39 +64,99 @@
             <div class="btn-group">
                 <input type="radio" id="linear" name="interpolation" value="Linear" checked>
                 <label for="linear" class="btn">Linear</label>
-    
+
                 <input type="radio" id="quadratic" name="interpolation" value="Quadratic">
                 <label for="quadratic" class="btn">Quadratic</label>
-    
-                <input type="radio" id="exponential" name="interpolation" value="Exponential">
-                <label for="exponential" class="btn">Exponential</label>
-    
-                <input type="radio" id="cubic" name="interpolation" value="Cubic">
-                <label for="cubic" class="btn">Cubic</label>
-    
-                <input type="radio" id="sine" name="interpolation" value="Sine">
-                <label for="sine" class="btn">Sine</label>
-    
-                <input type="radio" id="back" name="interpolation" value="Back">
-                <label for="back" class="btn">Back</label>
-    
-                <input type="radio" id="elastic" name="interpolation" value="Elastic">
-                <label for="elastic" class="btn">Elastic</label>
-    
-                <input type="radio" id="bounce" name="interpolation" value="Bounce">
-                <label for="bounce" class="btn">Bounce</label>
-    
+
                 <input type="radio" id="inverseQuadratic" name="interpolation" value="InverseQuadratic">
                 <label for="inverseQuadratic" class="btn">Inverse Quadratic</label>
-    
+
+                <input type="radio" id="cubic" name="interpolation" value="Cubic">
+                <label for="cubic" class="btn">Cubic</label>
+
+                <input type="radio" id="inverseCubic" name="interpolation" value="InverseCubic">
+                <label for="inverseCubic" class="btn">Inverse Cubic</label>
+
+                <input type="radio" id="quartic" name="interpolation" value="Quartic">
+                <label for="quartic" class="btn">Quartic</label>
+
+                <input type="radio" id="inverseQuartic" name="interpolation" value="InverseQuartic">
+                <label for="inverseQuartic" class="btn">Inverse Quartic</label>
+
+                <input type="radio" id="quintic" name="interpolation" value="Quintic">
+                <label for="quintic" class="btn">Quintic</label>
+
+                <input type="radio" id="inverseQuintic" name="interpolation" value="InverseQuintic">
+                <label for="inverseQuintic" class="btn">Inverse Quintic</label>
+
+                <input type="radio" id="sine" name="interpolation" value="Sine">
+                <label for="sine" class="btn">Sine</label>
+
+                <input type="radio" id="inverseSine" name="interpolation" value="InverseSine">
+                <label for="inverseSine" class="btn">Inverse Sine</label>
+
+                <input type="radio" id="back" name="interpolation" value="Back">
+                <label for="back" class="btn">Back</label>
+
+                <input type="radio" id="inverseBack" name="interpolation" value="InverseBack">
+                <label for="inverseBack" class="btn">Inverse Back</label>
+
+                <input type="radio" id="elastic" name="interpolation" value="Elastic">
+                <label for="elastic" class="btn">Elastic</label>
+
+                <input type="radio" id="bounce" name="interpolation" value="Bounce">
+                <label for="bounce" class="btn">Bounce</label>
+
                 <input type="radio" id="smoothstep" name="interpolation" value="Smoothstep">
                 <label for="smoothstep" class="btn">Smoothstep</label>
-    
+
+                <input type="radio" id="inverseSmoothstep" name="interpolation" value="InverseSmoothstep">
+                <label for="inverseSmoothstep" class="btn">Inverse Smoothstep</label>
+
                 <input type="radio" id="smootherstep" name="interpolation" value="Smootherstep">
                 <label for="smootherstep" class="btn">Smootherstep</label>
-    
+
+                <input type="radio" id="inverseSmootherstep" name="interpolation" value="InverseSmootherstep">
+                <label for="inverseSmootherstep" class="btn">Inverse Smootherstep</label>
+
                 <input type="radio" id="circular" name="interpolation" value="Circular">
                 <label for="circular" class="btn">Circular</label>
+
+                <input type="radio" id="inverseCircular" name="interpolation" value="InverseCircular">
+                <label for="inverseCircular" class="btn">Inverse Circular</label>
+
+                <input type="radio" id="exponential" name="interpolation" value="Exponential">
+                <label for="exponential" class="btn">Exponential</label>
+
+                <input type="radio" id="inverseExponential" name="interpolation" value="InverseExponential">
+                <label for="inverseExponential" class="btn">Inverse Exponential</label>
+
+                <input type="radio" id="quadraticBezier" name="interpolation" value="QuadraticBezier">
+                <label for="quadraticBezier" class="btn">Quadratic Bezier</label>
+
+                <input type="radio" id="inverseQuadraticBezier" name="interpolation" value="InverseQuadraticBezier">
+                <label for="inverseQuadraticBezier" class="btn">Inverse Quadratic Bezier</label>
+
+                <input type="radio" id="cubicBezier" name="interpolation" value="CubicBezier">
+                <label for="cubicBezier" class="btn">Cubic Bezier</label>
+
+                <input type="radio" id="inverseCubicBezier" name="interpolation" value="InverseCubicBezier">
+                <label for="inverseCubicBezier" class="btn">Inverse Cubic Bezier</label>
+
+                <input type="radio" id="quarticBezier" name="interpolation" value="QuarticBezier">
+                <label for="quarticBezier" class="btn">Quartic Bezier</label>
+
+                <input type="radio" id="inverseQuarticBezier" name="interpolation" value="InverseQuarticBezier">
+                <label for="inverseQuarticBezier" class="btn">Inverse Quartic Bezier</label>
+
+                <input type="radio" id="quinticBezier" name="interpolation" value="QuinticBezier">
+                <label for="quinticBezier" class="btn">Quintic Bezier</label>
+
+                <input type="radio" id="inverseQuinticBezier" name="interpolation" value="InverseQuinticBezier">
+                <label for="inverseQuinticBezier" class="btn">Inverse Quintic Bezier</label>
+
+                <input type="radio" id="sinusoidal" name="interpolation" value="Sinusoidal">
+                <label for="sinusoidal" class="btn">Sinusoidal</label>
             </div>
         </div>
     </div>
