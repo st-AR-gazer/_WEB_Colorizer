@@ -69,83 +69,50 @@ function interpolateColors(steps, type) {
 
 function applyInterpolation(t, type) {
     switch(type) {
+        case 'Linear':
+            return t;
         case 'Quadratic':
             return t * t;
-        case 'InverseQuadratic':
-            return 1 - (1 - t) * (1 - t);
         case 'Quartic':
             return t * t * t * t;
-        case 'InverseQuartic':
-            return 1 - (1 - t) * (1 - t) * (1 - t) * (1 - t);
         case 'Quintic':
             return t * t * t * t * t;
-        case 'InverseQuintic':
-            return 1 - (1 - t) * (1 - t) * (1 - t) * (1 - t) * (1 - t);
-        case 'Sinusoidal':
-            return (Math.sin(t * Math.PI - Math.PI / 2) + 1) / 2;
         case 'Cubic':
             return t * t * (3 - 2 * t);
-        case 'InverseCubic':
-            return 1 - t * t * (3 - 2 * t);
-        case 'CubicBezier':
-            return 3 * t * t - 2 * t * t * t;
-        case 'InverseCubicBezier':
-            return 1 - 3 * (1 - t) * (1 - t) + 2 * (1 - t) * (1 - t) * (1 - t);
-        case 'QuadraticBezier':
-            return 1 - (1 - t) * (1 - t);
-        case 'InverseQuadraticBezier':
-            return t * t;
-        case 'QuarticBezier':
-            return 2 * t * t * t - 3 * t * t + 1;
-        case 'InverseQuarticBezier':
-            return 1 - (2 * t * t * t - 3 * t * t + 1);
-        case 'QuinticBezier':
-            return t * t * t * t * t;
-        case 'InverseQuinticBezier':
-            return 1 - t * t * t * t * t;
         case 'Exponential':
             return Math.pow(t, 3);
-        case 'InverseExponential':
-            return 1 - Math.pow(1 - t, 3);
+        case 'Sinusoidal':
+            return (Math.sin(t * Math.PI - Math.PI / 2) + 1) / 2;
         case 'Sine':
             return Math.sin(t * Math.PI / 2);
-        case 'InverseSine':
-            return 1 - Math.sin((1 - t) * Math.PI / 2);
         case 'Back':
             let s = 1.70158;
             return t * t * ((s + 1) * t - s);
-        case 'InverseBack':
-            let s2 = 1.70158;
-            t = 1 - t;
-            return 1 - t * t * ((s2 + 1) * t - s2);
         case 'Elastic':
             let p = 0.3;
-            return Math.pow(2, -10 * t) * Math.sin((t - p / 4) * (2 * Math.PI) / p) + 1;
+            let elasticValue = Math.pow(2, -10 * t) * Math.sin((t - p / 4) * (2 * Math.PI) / p) + 1;
+            return Math.min(Math.max(elasticValue, 0), 1);
         case 'Bounce':
+            let bounceValue;
             if (t < (1 / 2.75)) {
-                return 7.5625 * t * t;
+                bounceValue = 7.5625 * t * t;
             } else if (t < (2 / 2.75)) {
                 t -= (1.5 / 2.75);
-                return 7.5625 * t * t + 0.75;
+                bounceValue = 7.5625 * t * t + 0.75;
             } else if (t < (2.5 / 2.75)) {
                 t -= (2.25 / 2.75);
-                return 7.5625 * t * t + 0.9375;
+                bounceValue = 7.5625 * t * t + 0.9375;
             } else {
                 t -= (2.625 / 2.75);
-                return 7.5625 * t * t + 0.984375;
+                bounceValue = 7.5625 * t * t + 0.984375;
             }
+            return Math.min(Math.max(bounceValue, 0), 1);
         case 'Smoothstep':
             return t * t * (3 - 2 * t);
-        case 'InverseSmoothstep':
-            return 1 - t * t * (3 - 2 * t);
         case 'Smootherstep':
             return t * t * t * (t * (t * 6 - 15) + 10);
-        case 'InverseSmootherstep':
-            return 1 - t * t * t * (t * (t * 6 - 15) + 10);
         case 'Circular':
             return 1 - Math.sqrt(1 - t * t);
-        case 'InverseCircular':
-            return Math.sqrt(1 - (1 - t) * (1 - t));
         default:
             return t; // Linear as default
     }

@@ -11,8 +11,8 @@
 
     <meta property="og:title" content="TM Linear Color Formatter" />
     <meta property="og:description" content="This is a color code formatter for Trackmania. Input two colors and some text and it creates a linear change for each letter." />
-    <meta property="og:url" content="https://www.colorFormatter.xjk.yt" />
-    <meta property="og:image" content="https://www.colorFormatter.xjk.yt/content/img/og-img-preview.png" />
+    <meta property="og:url" content="https://www.colorizer.xjk.yt" />
+    <meta property="og:image" content="https://www.colorizer.xjk.yt/content/img/og-img-preview.png" />
 </head>
 
 <body>
@@ -53,6 +53,7 @@
             <input type="color" id="startColor" name="startColor" value="#0033CC">
             <label for="endColor">End Color:</label>
             <input type="color" id="endColor" name="endColor" value="#33FFFF">
+            <button id="swapColors" onclick="swapColorValues()">Swap Colors</button>
             <!-- <button onclick="applyColorChanges()">Apply</button> -->
         </div>
     </div>
@@ -68,38 +69,20 @@
                 <input type="radio" id="quadratic" name="interpolation" value="Quadratic">
                 <label for="quadratic" class="btn">Quadratic</label>
 
-                <input type="radio" id="inverseQuadratic" name="interpolation" value="InverseQuadratic">
-                <label for="inverseQuadratic" class="btn">Inverse Quadratic</label>
-
                 <input type="radio" id="cubic" name="interpolation" value="Cubic">
                 <label for="cubic" class="btn">Cubic</label>
-
-                <input type="radio" id="inverseCubic" name="interpolation" value="InverseCubic">
-                <label for="inverseCubic" class="btn">Inverse Cubic</label>
 
                 <input type="radio" id="quartic" name="interpolation" value="Quartic">
                 <label for="quartic" class="btn">Quartic</label>
 
-                <input type="radio" id="inverseQuartic" name="interpolation" value="InverseQuartic">
-                <label for="inverseQuartic" class="btn">Inverse Quartic</label>
-
                 <input type="radio" id="quintic" name="interpolation" value="Quintic">
                 <label for="quintic" class="btn">Quintic</label>
-
-                <input type="radio" id="inverseQuintic" name="interpolation" value="InverseQuintic">
-                <label for="inverseQuintic" class="btn">Inverse Quintic</label>
 
                 <input type="radio" id="sine" name="interpolation" value="Sine">
                 <label for="sine" class="btn">Sine</label>
 
-                <input type="radio" id="inverseSine" name="interpolation" value="InverseSine">
-                <label for="inverseSine" class="btn">Inverse Sine</label>
-
                 <input type="radio" id="back" name="interpolation" value="Back">
                 <label for="back" class="btn">Back</label>
-
-                <input type="radio" id="inverseBack" name="interpolation" value="InverseBack">
-                <label for="inverseBack" class="btn">Inverse Back</label>
 
                 <input type="radio" id="elastic" name="interpolation" value="Elastic">
                 <label for="elastic" class="btn">Elastic</label>
@@ -110,50 +93,26 @@
                 <input type="radio" id="smoothstep" name="interpolation" value="Smoothstep">
                 <label for="smoothstep" class="btn">Smoothstep</label>
 
-                <input type="radio" id="inverseSmoothstep" name="interpolation" value="InverseSmoothstep">
-                <label for="inverseSmoothstep" class="btn">Inverse Smoothstep</label>
-
                 <input type="radio" id="smootherstep" name="interpolation" value="Smootherstep">
                 <label for="smootherstep" class="btn">Smootherstep</label>
-
-                <input type="radio" id="inverseSmootherstep" name="interpolation" value="InverseSmootherstep">
-                <label for="inverseSmootherstep" class="btn">Inverse Smootherstep</label>
 
                 <input type="radio" id="circular" name="interpolation" value="Circular">
                 <label for="circular" class="btn">Circular</label>
 
-                <input type="radio" id="inverseCircular" name="interpolation" value="InverseCircular">
-                <label for="inverseCircular" class="btn">Inverse Circular</label>
-
                 <input type="radio" id="exponential" name="interpolation" value="Exponential">
                 <label for="exponential" class="btn">Exponential</label>
-
-                <input type="radio" id="inverseExponential" name="interpolation" value="InverseExponential">
-                <label for="inverseExponential" class="btn">Inverse Exponential</label>
 
                 <input type="radio" id="quadraticBezier" name="interpolation" value="QuadraticBezier">
                 <label for="quadraticBezier" class="btn">Quadratic Bezier</label>
 
-                <input type="radio" id="inverseQuadraticBezier" name="interpolation" value="InverseQuadraticBezier">
-                <label for="inverseQuadraticBezier" class="btn">Inverse Quadratic Bezier</label>
-
                 <input type="radio" id="cubicBezier" name="interpolation" value="CubicBezier">
                 <label for="cubicBezier" class="btn">Cubic Bezier</label>
-
-                <input type="radio" id="inverseCubicBezier" name="interpolation" value="InverseCubicBezier">
-                <label for="inverseCubicBezier" class="btn">Inverse Cubic Bezier</label>
 
                 <input type="radio" id="quarticBezier" name="interpolation" value="QuarticBezier">
                 <label for="quarticBezier" class="btn">Quartic Bezier</label>
 
-                <input type="radio" id="inverseQuarticBezier" name="interpolation" value="InverseQuarticBezier">
-                <label for="inverseQuarticBezier" class="btn">Inverse Quartic Bezier</label>
-
                 <input type="radio" id="quinticBezier" name="interpolation" value="QuinticBezier">
                 <label for="quinticBezier" class="btn">Quintic Bezier</label>
-
-                <input type="radio" id="inverseQuinticBezier" name="interpolation" value="InverseQuinticBezier">
-                <label for="inverseQuinticBezier" class="btn">Inverse Quintic Bezier</label>
 
                 <input type="radio" id="sinusoidal" name="interpolation" value="Sinusoidal">
                 <label for="sinusoidal" class="btn">Sinusoidal</label>
@@ -166,6 +125,21 @@
 
     <script src="colorize.js"></script>
     <script src="background.js"></script>
+    <script>
+        function swapColorValues() {
+            const startColorInput = document.getElementById('startColor');
+            const endColorInput = document.getElementById('endColor');
+            
+            let temp = startColorInput.value;
+            startColorInput.value = endColorInput.value;
+            endColorInput.value = temp;
+            
+            startColorGlobal = startColorInput.value;
+            endColorGlobal = endColorInput.value;
+            
+            colorizeAndDisplay();
+        }
+    </script>
     <script>
         function clearFormatter() {
             document.getElementById('inputString').value = '';
