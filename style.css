@@ -212,3 +212,9 @@ button:hover {
     visibility: visible;
     transform: translateY(-20px);
 }
+
+.btn-blue {
+    background-color: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
