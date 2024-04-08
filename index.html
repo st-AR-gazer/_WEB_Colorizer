@@ -23,7 +23,7 @@
 
         <div class="flex-container settings-area">
             <button id="toggleEscape" onclick="toggleEscapeCharacters()">Include \</button>
-            <button id="toggleOptions" onclick="toggleOptions()">Custom formatting</button>
+            <button id="toggleOptionCard" onclick="toggleOptionCard()">Custom formatting</button>
             <button id="toggleColorCard" onclick="toggleColorCard()">Custom colors</button>
             <button id="clearFormatter" onclick="clearFormatter()">Reset formatter</button>
         </div>
@@ -45,16 +45,47 @@
 
     </div>
 
-    <!-- Color Card -->
+    <!-- Color Picker, Color Card -->
     <div id="colorCard" class="color-card">
         <div class="color-card-content">
             <h2>Choose Colors</h2>
-            <label for="startColor">Start Color:</label>
-            <input type="color" id="startColor" name="startColor" value="#0033CC">
-            <label for="endColor">End Color:</label>
-            <input type="color" id="endColor" name="endColor" value="#33FFFF">
-            <button id="swapColors" onclick="swapColorValues()" class="btn-blue">Swap Colors</button>
-            <!-- <button onclick="applyColorChanges()">Apply</button> -->
+
+            <!-- Color Count Selection -->
+            <div class="color-count-selector" style="padding-bottom: 8px;">
+                <h3>Number of Colors</h3>
+                <div class="btn-group" id="colorCountSelector">
+                    <input type="radio" id="twoColors" name="colorCount" value="2" checked>
+                    <label for="twoColors" class="btn">Color 2</label>
+
+                    <input type="radio" id="threeColors" name="colorCount" value="3">
+                    <label for="threeColors" class="btn">Color 3</label>
+
+                    <input type="radio" id="fourColors" name="colorCount" value="4">
+                    <label for="fourColors" class="btn">Color 4</label>
+
+                    <input type="radio" id="fiveColors" name="colorCount" value="5">
+                    <label for="fiveColors" class="btn">Color 5</label>
+                </div>
+            </div>
+
+            <!-- Dynamic Color Pickers -->
+            <div id="colorPickers" style="padding-bottom: 8px;">
+                
+                <input type="color" id="picker0" value="#0033CC">
+                <input type="color" id="picker1" value="#33FFFF">
+                <input type="color" id="picker2" value="#33FF33" style="display:none;">
+                <input type="color" id="picker3" value="#FF3333" style="display:none;">
+                <input type="color" id="picker4" value="#FF33FF" style="display:none;">
+            </div>
+
+            <input type="color" id="picker${i}" value="${colorArrayGlobal[i]}">
+            <!-- Swap Colors Button -->
+            <h3>Quick Actions</h3>
+            <div class="flex-container settings-area">
+                <button id="colorPickers">Randomize</button>
+                <button id="swapColors" onclick="swapColorValues()">Swap Colors</button>
+            </div>
+
         </div>
     </div>
 
@@ -112,22 +143,10 @@
     <div id="notificationContainer" class="notification-container"></div>
 
     <script src="colorize.js"></script>
+    <script src="colorCard.js"></script>
+    <script src="optionCard.js"></script>
+    <script src="mainCard.js"></script>
     <script src="background.js"></script>
-    <script>
-        function swapColorValues() {
-            const startColorInput = document.getElementById('startColor');
-            const endColorInput = document.getElementById('endColor');
-            
-            let temp = startColorInput.value;
-            startColorInput.value = endColorInput.value;
-            endColorInput.value = temp;
-            
-            startColorGlobal = startColorInput.value;
-            endColorGlobal = endColorInput.value;
-            
-            colorizeAndDisplay();
-        }
-    </script>
     <script>
         function clearFormatter() {
             document.getElementById('inputString').value = '';
@@ -179,9 +198,6 @@
                 }, 500);
             }, 3000);
         }
-        
-        
-        
     </script>
 </body>
 

@@ -3,12 +3,6 @@ let includeEscapeCharacters = false;
 let startColorGlobal = "#0033CC";
 let endColorGlobal = "#33FFFF";
 
-let isColorCardOpen = false;
-let isOptionsCardOpen = false;
-
-
-
-
 function toggleEscapeCharacters() {
     includeEscapeCharacters = !includeEscapeCharacters;
     document.getElementById('toggleEscape').textContent = includeEscapeCharacters ? "Exclude \\" : "Include \\";
@@ -152,41 +146,5 @@ function colorizeAndDisplay() {
     if(inputString) {
         let outputString = colorizeString(inputString, type);
         document.getElementById("outputString").innerText = outputString;
-    }
-}
-
-function updatePreview(previewContent) {
-    document.getElementById("previewString").innerText = previewContent;
-}
-
-function toggleColorCard() {
-    const modal = document.querySelector('.modal');
-    const colorCard = document.getElementById('colorCard');
-
-    isColorCardOpen = !isColorCardOpen;
-    colorCard.classList.toggle('color-card-active');
-
-    adjustModalPosition();
-}
-
-function toggleOptions() {
-    const modal = document.querySelector('.modal');
-    const optionsCard = document.getElementById('optionsCard');
-
-    isOptionsCardOpen = !isOptionsCardOpen;
-    optionsCard.classList.toggle('options-card-active');
-
-    adjustModalPosition();
-}
-
-function adjustModalPosition() {
-    const modal = document.querySelector('.modal');
-
-    modal.classList.remove('modal-active', 'modal-options-active');
-
-    if (isColorCardOpen && !isOptionsCardOpen) {
-        modal.classList.add('modal-active');
-    } else if (!isColorCardOpen && isOptionsCardOpen) {
-        modal.classList.add('modal-options-active');
     }
 }
