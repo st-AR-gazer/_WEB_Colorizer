@@ -45,21 +45,50 @@ function hexToRgb(hex) {
 }    
 
 function interpolateColors(steps, type) {
-    let colorArray = [];
-    const {r: sR, g: sG, b: sB} = hexToRgb(startColorGlobal);
-    const {r: eR, g: eG, b: eB} = hexToRgb(endColorGlobal);
-
-    for (let step = 0; step < steps; ++step) {
-        let t = step / (steps - 1);
-        t = applyInterpolation(t, type);
-
-        const r = Math.round(sR + (eR - sR) * t).toString(16).padStart(2, '0');
-        const g = Math.round(sG + (eG - sG) * t).toString(16).padStart(2, '0');
-        const b = Math.round(sB + (eB - sB) * t).toString(16).padStart(2, '0');
-        colorArray.push(`#${r}${g}${b}`);
+    if (colorArrayGlobal.length < 2 || steps < 2) {
+        // Not enough colors or steps to interpolate, return default or single color
+        return Array(steps).fill(colorArrayGlobal[0] || '#FFFFFF');
     }
-    return colorArray;
+
+    let colorArray = [];
+    let totalSegments = colorArrayGlobal.length - 1;
+    let segmentSteps = steps - totalSegments;
+
+    for (let i = 0; i < totalSegments; i++) {
+        const startColor = colorArrayGlobal[i];
+        const endColor = colorArrayGlobal[i + 1];
+        const {r: sR, g: sG, b: sB} = hexToRgb(startColor);
+        const {r: eR, g: eG, b: eB} = hexToRgb(endColor);
+
+        let stepsForSegment = Math.floor(segmentSteps / totalSegments);
+        if (i < segmentSteps % totalSegments) stepsForSegment++;
+
+        for (let step = 0; step < stepsForSegment; step++) {
+            let t = step / (stepsForSegment - 1);
+            t = applyInterpolation(t, type);
+            const r = Math.round(sR + (eR - sR) * t).toString(16).padStart(2, '0');
+            const g = Math.round(sG + (eG - sG) * t).toString(16).padStart(2, '0');
+            const b = Math.round(sB + (eB - sB) * t).toString(16).padStart(2, '0');
+            colorArray.push(`#${r}${g}${b}`);
+        }
+
+        if (i === totalSegments - 1) break;
+
+        if (i < totalSegments - 1) {
+            colorArray.push(endColor);
+        }
+    }
+
+    if (colorArray.length < steps) {
+        const lastColor = colorArray[colorArray.length - 1];
+        while (colorArray.length < steps) {
+            colorArray.push(lastColor);
+        }
+    }
+
+    return colorArray.slice(0, steps);
 }
+
 
 function applyInterpolation(t, type) {
     switch(type) {
@@ -136,6 +165,8 @@ function colorizeString(inputString, type) {
         span.textContent = inputString[i];
         previewString.appendChild(span);
     }
+
+    coloredString += includeEscapeCharacters ? "\\$z" : "$z";
 
     return coloredString;
 }

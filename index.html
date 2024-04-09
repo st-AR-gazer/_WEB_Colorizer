@@ -68,24 +68,17 @@
                 </div>
             </div>
 
-            <!-- Dynamic Color Pickers -->
-            <div id="colorPickers" style="padding-bottom: 8px;">
-                
-                <input type="color" id="picker0" value="#0033CC">
-                <input type="color" id="picker1" value="#33FFFF">
-                <input type="color" id="picker2" value="#33FF33" style="display:none;">
-                <input type="color" id="picker3" value="#FF3333" style="display:none;">
-                <input type="color" id="picker4" value="#FF33FF" style="display:none;">
+            <div id="colorPickers">
+                <!-- JS magic -->
             </div>
 
-            <input type="color" id="picker${i}" value="${colorArrayGlobal[i]}">
             <!-- Swap Colors Button -->
             <h3>Quick Actions</h3>
             <div class="flex-container settings-area">
-                <button id="colorPickers">Randomize</button>
-                <button id="swapColors" onclick="swapColorValues()">Swap Colors</button>
+                <button onclick="randomizeColors()">Randomize</button>
+                <button onclick="setDefaultColors()">Set Default</button>
+                <button onclick="swapColorValues()">Flipp</button>
             </div>
-
         </div>
     </div>
 
