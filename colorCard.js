@@ -141,46 +141,51 @@ document.getElementById('togglePresets').addEventListener('click', function() {
 
 
 function applyPresetColors(colorArray) {
-    // Update global color array with the new preset colors
     colorArrayGlobal = [...colorArray];
+    
+    const maxColorsSupported = Math.max(...colorArray.map(arr => arr.length), 5);
+    ensureColorCountOptions(maxColorsSupported);
+    
+    const colorCountInput = document.querySelector(`input[name="colorCount"][value="${colorArray.length}"]`);
+    if(colorCountInput) {
+        colorCountInput.checked = true;
+    } else {
+        addColorCountOption(colorArray.length);
+        document.querySelector(`input[name="colorCount"][value="${colorArray.length}"]`).checked = true;
+    }
 
-    // Update the UI for the number of colors by programmatically checking the appropriate radio button
-    document.querySelector(`input[name="colorCount"][value="${colorArray.length}"]`).checked = true;
-
-    // Call updateColorPickers to adjust the number of visible color pickers
     updateColorPickers(colorArray.length);
 
-    // Update each color picker's value with the colors from the preset
     colorArray.forEach((color, index) => {
-        document.getElementById(`picker${index}`).value = color;
+        const picker = document.getElementById(`picker${index}`);
+        if(picker) {
+            picker.value = color;
+        }
     });
 
-    // Update the display with the new colors
     colorizeAndDisplay();
 }
 
-function updateColorPickers(count) {
-    const colorPickersContainer = document.getElementById('colorPickers');
-    // Clear existing pickers
-    colorPickersContainer.innerHTML = '';
-
-    // Create new pickers based on count
-    for (let i = 0; i < count; i++) {
-        const colorPicker = document.createElement('input');
-        colorPicker.type = 'color';
-        colorPicker.id = `picker${i}`;
-        colorPicker.onchange = handleColorChange;
-        colorPicker.value = colorArrayGlobal[i] || '#FFFFFF'; // Use existing global color or default
-        colorPickersContainer.appendChild(colorPicker);
-    }
-
-    // Adjust global color array length
-    if (colorArrayGlobal.length > count) {
-        colorArrayGlobal.length = count; // Reduce size
-    } else {
-        while (colorArrayGlobal.length < count) {
-            colorArrayGlobal.push('#FFFFFF'); // Fill with default colors
-        }
+function ensureColorCountOptions(maxColors) {
+    const colorCountSelector = document.getElementById("colorCountSelector");
+    while(colorCountSelector.children.length < maxColors) {
+        addColorCountOption(colorCountSelector.children.length + 1);
     }
 }
 
+function addColorCountOption(value) {
+    const colorCountSelector = document.getElementById("colorCountSelector");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.id = `color${value}`;
+    input.name = "colorCount";
+    input.value = value;
+
+    const label = document.createElement("label");
+    label.htmlFor = `color${value}`;
+    label.textContent = value;
+    label.className = "btn";
+
+    colorCountSelector.appendChild(input);
+    colorCountSelector.appendChild(label);
+}
