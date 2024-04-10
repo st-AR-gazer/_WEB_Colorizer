@@ -45,6 +45,14 @@ function hexToRgb(hex) {
 }    
 
 function interpolateColors(steps, type) {
+    if (type === 'DirectApply') {
+        let directColors = [];
+        for (let i = 0; i < steps; i++) {
+            directColors.push(colorArrayGlobal[i % colorArrayGlobal.length]);
+        }
+        return directColors;
+    }
+
     if (colorArrayGlobal.length < 2 || steps < 2) {
         // Not enough colors or steps to interpolate, return default or single color
         return Array(steps).fill(colorArrayGlobal[0] || '#FFFFFF');
@@ -154,6 +162,7 @@ function colorizeString(inputString, type) {
 
     let colors = interpolateColors(inputString.length, type);
     let coloredString = "";
+
     let previewString = document.getElementById("previewString");
     previewString.innerHTML = "";
 
@@ -166,7 +175,7 @@ function colorizeString(inputString, type) {
         previewString.appendChild(span);
     }
 
-    coloredString += includeEscapeCharacters ? "\\$z" : "$z";
+    coloredString += includeEscapeCharacters ? "\\$g" : "$g";
 
     return coloredString;
 }

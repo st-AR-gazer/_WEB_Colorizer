@@ -49,35 +49,37 @@
     <div id="colorCard" class="color-card">
         <div class="color-card-content">
             <h2>Choose Colors</h2>
-
+    
             <!-- Color Count Selection -->
             <div class="color-count-selector" style="padding-bottom: 8px;">
                 <h3>Number of Colors</h3>
                 <div class="btn-group" id="colorCountSelector">
                     <input type="radio" id="twoColors" name="colorCount" value="2" checked>
-                    <label for="twoColors" class="btn">Color 2</label>
-
+                    <label for="twoColors" class="btn">2</label>
                     <input type="radio" id="threeColors" name="colorCount" value="3">
-                    <label for="threeColors" class="btn">Color 3</label>
-
+                    <label for="threeColors" class="btn">3</label>
                     <input type="radio" id="fourColors" name="colorCount" value="4">
-                    <label for="fourColors" class="btn">Color 4</label>
-
+                    <label for="fourColors" class="btn">4</label>
                     <input type="radio" id="fiveColors" name="colorCount" value="5">
-                    <label for="fiveColors" class="btn">Color 5</label>
+                    <label for="fiveColors" class="btn">5</label>
                 </div>
             </div>
 
-            <div id="colorPickers">
-                <!-- JS magic -->
-            </div>
+            <div id="colorPickers" style="padding-bottom: 8px;"></div>
 
             <!-- Swap Colors Button -->
             <h3>Quick Actions</h3>
             <div class="flex-container settings-area">
                 <button onclick="randomizeColors()">Randomize</button>
-                <button onclick="setDefaultColors()">Set Default</button>
+                <button onclick="setDefaultColors()">Default</button>
+                <button id="togglePresets">Presets</button>
                 <button onclick="swapColorValues()">Flipp</button>
+            </div>
+
+            <div id="presetsPanel" class="flex-container settings-area presets-panel" style="display: none;">
+                <h4>Presets</h4>
+                <button onclick="applyPresetColors(['#5BCEFA', '#F5A9B8', '#FFFFFF', '#F5A9B8', '#5BCEFA'])">Trans</button>
+                <!-- Add more buttons for other presets here -->
             </div>
         </div>
     </div>
@@ -87,6 +89,9 @@
         <div class="option-card-content">
             <h2>Custom Formatting Options</h2>
             <div class="btn-group">
+                <input type="radio" id="directApply" name="interpolation" value="DirectApply">
+                <label for="directApply" class="btn">Direct Apply</label>
+
                 <input type="radio" id="linear" name="interpolation" value="Linear" checked>
                 <label for="linear" class="btn">Linear</label>
 
