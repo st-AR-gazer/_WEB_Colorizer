@@ -84,9 +84,13 @@ function swapColorValues() {
     
     for (let i = 0; i < Math.floor(count / 2); i++) {
         const endIndex = count - 1 - i;
-        let temp = visibleColorPickers[i].value;
+        let tempValue = visibleColorPickers[i].value;
         visibleColorPickers[i].value = visibleColorPickers[endIndex].value;
-        visibleColorPickers[endIndex].value = temp;
+        visibleColorPickers[endIndex].value = tempValue;
+
+        let tempColor = colorArrayGlobal[i];
+        colorArrayGlobal[i] = colorArrayGlobal[endIndex];
+        colorArrayGlobal[endIndex] = tempColor;
     }
     
     colorizeAndDisplay();

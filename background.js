@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.height = window.innerHeight;
 
     let dots = [];
-    const dotCount = 500;   // Dot density
-    const maxDistance = 50; // Max distance poss to move away from cursor
+    const dotCount = 500;   // Adjust density as needed
+    const maxDistance = 50; // Max distance to interact with the cursor
 
     class Dot {
         constructor(x, y) {
@@ -19,9 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
         draw() {
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, startColorGlobal);
-            gradient.addColorStop(1, endColorGlobal);
-            
+            colorArrayGlobal.forEach((color, index) => {
+                let stop = index / (colorArrayGlobal.length - 1);
+                gradient.addColorStop(stop, color);
+            });
+
             ctx.fillStyle = gradient;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -35,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let distance = Math.sqrt(dx * dx + dy * dy);
             let forceDirectionX = dx / distance;
             let forceDirectionY = dy / distance;
-            let maxDistance = 50;
             let force = (maxDistance - distance) / maxDistance;
             let directionX = forceDirectionX * force * this.size;
             let directionY = forceDirectionY * force * this.size;
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initDots() {
         dots = [];
-        let overlap = 50; // Spacing between dots
+        let overlap = 50; // Adjust spacing between dots
         let rowCount = canvas.width / overlap;
         let columnCount = canvas.height / overlap;
 
