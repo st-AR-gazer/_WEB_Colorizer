@@ -81,7 +81,15 @@
             </div>
 
             <div id="presetsPanel" class="presets-panel" style="display: none;">
-                <h4>Presets</h4>
+                <h4>Seasons</h4>
+                <div class="flex-container settings-area">
+                    <button onclick="applyPresetColors(['#77DDCC', '#FFEEAA'])">Spring</button>
+                    <button onclick="applyPresetColors(['#FFFFBB', '#FF77BB'])">Summer</button>
+                    <button onclick="applyPresetColors(['#990011', '#EE6611'])">Fall</button>
+                    <button onclick="applyPresetColors(['#66CCFF', '#FF0000'])">Winter</button>
+                </div>
+
+                <h4>Pride</h4>
                 <div class="flex-container settings-area">
                     <div class="settings-area">
                         <button onclick="applyPresetColors(['#E40303', '#FF8C00', '#FFED00', '#008026', '#24408E', '#732982'])">Pride</button>
@@ -96,6 +104,31 @@
                     <div class="settings-area">
                         <button onclick="applyPresetColors(['#FCF434', '#FFFFFF', '#9C59D1', '#2C2C2C'])">Non-binary</button>
                     </div>
+                </div>
+
+                <h4>Flags</h4>
+                <div class="flex-container settings-area">
+                    <div class="settings-area">
+                        <button onclick="applyPresetColors(['#BA0C2F', '#FFFFFF', '#00205B'])">Norway</button>
+                        <button onclick="applyPresetColors(['#C8102E', '#FFFFFF'])">Denmark</button>
+                        <button onclick="applyPresetColors(['#006AA7', '#FECC02'])">Sweden</button>
+                        <button onclick="applyPresetColors(['#FFFFFF', '#002F6C'])">Finland</button>
+                    </div>
+
+                    <div class="settings-area">
+                        <button onclick="applyPresetColors(['#001489', '#FFDD00'])">European Union</button>
+                        <button onclick="applyPresetColors(['#FF0000', '#FFFFFF', '#0000FF'])">United States</button>
+                        <button onclick="applyPresetColors(['#002654', '#FFFFFF', '#ED2939'])">France</button>
+                        <button onclick="applyPresetColors(['#FFFFFF', '#C8102E', '#012169'])">United Kingdom</button>
+                    </div>
+                    
+                    <div class="settings-area">
+                        <button onclick="applyPresetColors(['#000000', '#DD0000', '#FFCC00'])">Germany</button>
+                        <button onclick="applyPresetColors(['#2D2926', '#FFCD00', '#C8102E'])">Belgium</button>
+                        <button onclick="applyPresetColors(['#C8102E', '#FFFFFF', '#003DA5'])">Netherlands</button>
+                        <button onclick="applyPresetColors(['#EA141D', '#FFFFFF', '#51ADDA'])">Luxembourg</button>
+                    </div>
+
                 </div>
             </div>
         </div>
