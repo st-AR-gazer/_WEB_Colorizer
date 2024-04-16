@@ -20,6 +20,14 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 
     background-color: rgba(30, 30, 30, 0.5);
+
+    max-height: 80%;
+    overflow-y: scroll;
+}
+
+.color-card-content {
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 .modal-active {
@@ -31,9 +39,6 @@
     z-index: 30;
 }
 
-.color-card-content {
-    overflow-y: scroll;
-}
 
 @media (max-width: 903px) {
     .color-card {
