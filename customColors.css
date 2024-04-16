@@ -31,6 +31,10 @@
     z-index: 30;
 }
 
+.color-card-content {
+    overflow-y: scroll;
+}
+
 @media (max-width: 903px) {
     .color-card {
         position: fixed;
