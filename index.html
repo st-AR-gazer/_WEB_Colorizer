@@ -48,7 +48,12 @@
     <!-- Color Picker, Color Card -->
     <div id="colorCard" class="color-card">
         <div class="color-card-content">
-            <h2>Choose Colors</h2>
+            <div style="display: flex; justify-content: space-between;">
+                <h2>Choose Colors</h2>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <button onclick="toggleColorCard()" style="height: 40px;">x</button>
+                </div>
+            </div>
     
             <!-- Color Count Selection -->
             <div class="color-count-selector" style="padding-bottom: 8px;">
@@ -134,10 +139,15 @@
         </div>
     </div>
 
-    <!-- Option Card similar in style to Color Card -->
+    <!-- Option Card similar in style to Options Card -->
     <div id="optionsCard" class="options-card">
         <div class="option-card-content">
-            <h2>Custom Formatting Options</h2>
+            <div style="display: flex;">
+                <h2>Custom Formatting Options</h2>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <button onclick="toggleOptionCard()" style="height: 40px;">x</button>
+                </div>
+            </div>
             <div class="btn-group">
                 <input type="radio" id="directApply" name="interpolation" value="DirectApply">
                 <label for="directApply" class="btn">Direct Apply</label>
